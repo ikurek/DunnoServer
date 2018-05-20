@@ -4,14 +4,18 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new
   end
 
-  # POST /user_session?
-  # FIXME: Where the fuck did I actually route this?
+  # POST /login
+  # POST /login.json
+  # QUESTION: Where the fuck did I actually route this?
   def create
     @user_session = UserSession.new(user_session_params.to_h)
-    if @user_session.save
-      redirect_to questions_url
-    else
-      render action: :new
+
+    respond_to do |format|
+      if @user_session.save
+        format.html { redirect_to questions_url }
+      else
+        format.html { render :new }
+      end
     end
   end
 

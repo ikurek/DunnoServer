@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   # Parameters required for handling user UserSession
   # Throws error if any is missing or invalid
   def user_params

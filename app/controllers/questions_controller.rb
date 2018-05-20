@@ -1,6 +1,5 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy]
-
   # Require login before taking any action with questions
   before_action :require_login
   # Bind user to current question
@@ -27,7 +26,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = current_user.questions.new(question_params)
+    @question = @user.questions.new(question_params)
 
     respond_to do |format|
       if @question.save
@@ -57,10 +56,18 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
-    @question.destroy
-    respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
-      format.json { head :no_content }
+    # Walidate if user is owner of question
+    # If so, perform delete
+    if current_user = @question.user
+      @question.destroy
+      respond_to do |format|
+        format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    # If not, throw error at user
+    else
+      format.html {redirect_to questions_url notice: 'No access to question'}
+      format.json { head :no_content}
     end
   end
 
