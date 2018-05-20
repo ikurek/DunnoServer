@@ -1,4 +1,5 @@
 class User < ApplicationRecord
-  has_secure_password
-  has_many :posts
+    # Require safe password, validate email, etc.
+    acts_as_authentic
+    has_many :questions
 end

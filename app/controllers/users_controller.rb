@@ -1,34 +1,29 @@
 class UsersController < ApplicationController
+  # GET /register
+  def new
+    @user = User.new
+  end
 
-  # POST /users
+  # POST /register
+  # POST /register.json
   def create
-    user = User.create!(user_params)
-    render json: user.id
-  end
+    @user = User.new(user_params)
 
-  # GET /users/:id
-  def show
-    user = User.find(params[:id])
-    render json: {"id": user.id, "name": user.name, "email": user.email}
-  end
-
-  # PUT /users/:id
-  def update
-    user = User.find(params[:id])
-    user.update(user_params)
-    head :no_content
-  end
-
-  # DELETE /users/:id
-  def destroy
-    user = User.find(params[:id])
-    user.destroy
-    head :no_content
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to login_path }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
-    # User params for post
-    def user_params
-      params.require(:user).permit(:name, :email, :password)
-    end
+  # Parameters required for handling user UserSession
+  # Throws error if any is missing or invalid
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
 end
