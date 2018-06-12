@@ -1,22 +1,8 @@
-<%= form_for @user, url: register_path do |f| %>
-  <% if @user.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@user.errors.count, "error") %> prohibited:</h2>
-    <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
-  <%= f.label :email %><br />
-  <%= f.text_field :email %><br />
-  <br />
-  <%= f.label :password %><br />
-  <%= f.password_field :password %><br />
-  <br />
-  <%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %><br />
-  <br />
-  <%= f.submit "Register" %>
+<%= simple_form_for @user, url: signup_path do |f| %>
+  <%= f.input :email, required: true %>
+  <%= f.input :login, required: true  %>
+  <%= f.input :name, required: true  %>
+  <%= f.input :password, required: true  %>
+  <%= f.input :password_confirmation, required: true  %>
+  <%= f.button :submit, "Register", class: "btn btn-success" %>
 <% end %>

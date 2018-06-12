@@ -1,0 +1,43 @@
+//= require_tree
+//= require_self
+
+nav {
+  margin-bottom: 25px !important;
+}
+
+.vote-count {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: -.8rem;
+}
+
+.vote-up {
+  font-size: 2.5rem;
+}
+
+.vote-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 2px solid #5c5c5c;
+margin-right: 1.5rem;
+}
+
+.card-body {
+  display: flex;
+  padding-left: 0 !important;
+}
+
+.card-content-wrapper {
+  flex: 8;
+}
+
+.upvoted {
+  color: orange !important;
+}
+
+.vote-up > a > i {
+  color: grey;
+}

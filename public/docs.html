@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Dokumentacja</title>
+  </head>
+  <body>
+    <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-baqh{text-align:center;vertical-align:center}
+.tg .tg-json{text-align: left;vertical-align: center}
+.tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:center}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-amwm">URL</th>
+    <th class="tg-amwm">REQUEST</th>
+    <th class="tg-amwm">BODY</th>
+    <th class="tg-amwm">RESPONSE</th>
+    <th class="tg-amwm">ERROR</th>
+    <th class="tg-amwm">DESCRIPTION</th>
+  </tr>
+  <tr>
+    <td class="tg-baqh" rowspan="2">/api/questions</td>
+    <td class="tg-baqh">GET</td>
+    <td class="tg-baqh">-</td>
+    <td class="tg-json"><pre>
+[
+  {
+    "id": int,
+    "title": string,
+    "body": string,
+    "created_at": string,
+    "updated_at": string,
+    "author": string
+  }
+]
+    </pre></td>
+    <td class="tg-baqh">400 BAD REQUEST</td>
+    <td class="tg-baqh">Pobranie wszystkich pytań</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">POST</td>
+    <td class="tg-json"><pre>
+{
+  "author": string,
+  "title": string,
+  "body": string
+}
+    </pre></td>
+    <td class="tg-baqh">200 OK</td>
+    <td class="tg-baqh">400 BAD REQUEST</td>
+    <td class="tg-baqh">Dodanie nowego pytania</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">/api/questions/&lt;id_pytania&gt;</td>
+    <td class="tg-baqh">GET</td>
+    <td class="tg-baqh">-</td>
+    <td class="tg-json"><pre>
+{
+  "id": int,
+  "title": string,
+  "body": string,
+  "created_at": string,
+  "updated_at": string,
+  "author": string
+}
+    </pre></td>
+    <td class="tg-baqh">404 NOT FOUND</td>
+    <td class="tg-baqh">Pobranie pytania o określonym &lt;id_pytania&gt;</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh" rowspan="2">/api/questions/&lt;id_pytania&gt;/answers</td>
+    <td class="tg-baqh">GET</td>
+    <td class="tg-baqh">-</td>
+    <td class="tg-json"><pre>
+[
+  {
+    "id": int,
+    "body": string,
+    "question_id": int,
+    "created_at": string,
+    "updated_at": string,
+    "author": string
+  }
+]
+    </pre></td>
+    <td class="tg-baqh">404 NOT FOUND</td>
+    <td class="tg-baqh">Pobranie wszystkich odpowiedzi na pytanie &lt;id_pytania&gt;</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">POST</td>
+    <td class="tg-json"><pre>
+{
+  "author": string,
+  "body": string
+}
+    </pre></td>
+    <td class="tg-baqh">200 OK</td>
+    <td class="tg-baqh">400 BAD REQUEST</td>
+    <td class="tg-baqh">Dodanie odpowiedzi do pytania o &lt;id_pytania&gt;</td>
+  </tr>
+</table>
+  </body>
+</html>

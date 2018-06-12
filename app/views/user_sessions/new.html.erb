@@ -9,11 +9,23 @@
     </ul>
   </div>
   <% end %>
-  <%= f.label :email %><br />
-  <%= f.text_field :email %><br />
+  
+  <div align="center">
+  <%= f.label :login %><br />
+  <%= f.text_field :login %><br />
+  </div>
+
   <br />
+
+  <div align="center">
   <%= f.label :password %><br />
   <%= f.password_field :password %><br />
+  </div>
+
   <br />
-  <%= f.submit "Login" %>
+
+  <div align="center">
+  <%= f.submit "Login", class: "btn btn-success"%>
+  <%= link_to "New here? Sign up!", signup_path, class: "btn btn-primary" %>
+  </div>
 <% end %>

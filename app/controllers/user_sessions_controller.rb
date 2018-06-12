@@ -1,34 +1,35 @@
 class UserSessionsController < ApplicationController
-  # GET /login
+  skip_before_action :require_login
+
+  # Login form
   def new
+    if current_user
+      redirect_to root_path
+      return
+    end
+
     @user_session = UserSession.new
   end
 
-  # POST /login
-  # POST /login.json
-  # QUESTION: Where the fuck did I actually route this?
+  # Handle login
   def create
     @user_session = UserSession.new(user_session_params.to_h)
-
-    respond_to do |format|
-      if @user_session.save
-        format.html { redirect_to questions_url }
-      else
-        format.html { render :new }
-      end
+    if @user_session.save
+      redirect_to root_path
+    else
+      render action: :new
     end
   end
 
+  # Handle logout
   def destroy
     current_user_session.destroy
-    redirect_to new_user_session_url
+    redirect_to login_path
   end
 
   private
 
-  # Parameters required for handling user UserSession
-  # Throws error if any is missing or invalid
   def user_session_params
-    params.require(:user_session).permit(:email, :password, :remember_me)
+    params.require(:user_session).permit(:login, :password)
   end
 end

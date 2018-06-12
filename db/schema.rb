@@ -10,18 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_19_233736) do
+ActiveRecord::Schema.define(version: 2018_06_10_202627) do
 
-  create_table "questions", force: :cascade do |t|
-    t.string "title"
-    t.string "body"
+  create_table "answer_upvotes", force: :cascade do |t|
+    t.integer "answer_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.text "body"
+    t.integer "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.index ["user_id"], name: "index_questions_on_user_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "question_upvotes", force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "login"
+    t.string "name"
     t.string "email"
     t.string "crypted_password"
     t.string "password_salt"
@@ -35,6 +59,7 @@ ActiveRecord::Schema.define(version: 2018_05_19_233736) do
     t.datetime "last_login_at"
     t.string "current_login_ip"
     t.string "last_login_ip"
+    t.boolean "confirmed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["perishable_token"], name: "index_users_on_perishable_token", unique: true

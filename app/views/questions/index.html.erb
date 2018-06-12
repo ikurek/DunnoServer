@@ -1,34 +1,28 @@
-<p id="notice"><%= notice %></p>
+<%= link_to "Add Question", new_question_path, class: "btn btn-success" %>
+<%= link_to "My Questions", root_path, class: "btn btn-primary"%>
 
-<h1>Questions</h1>
-<h2>Logged in as: <%= current_user.email %></h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Author</th>
-      <th>Title</th>
-      <th>Body</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @questions.each do |question| %>
-      <tr>
-        <td><%= question.id %></td>
-        <td><%= question.user.email %></td>
-        <td><%= question.title %></td>
-        <td><%= question.body %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Question', new_question_path %>
+<hr>
+<h1>All Questions</h1>
+<hr>
+<% @questions.each do |question| %>
+  <div class="card my-2" style="">
+    <div class="card-body">
+      <div class="vote-wrapper">
+        <div class="vote-up">
+          <%= link_to toggle_vote_question_path(question), method: :post do %>
+            <i class="fas fa-arrow-alt-circle-up <%= question.upvoted_by?(current_user) ? 'upvoted' : '' %>"></i>
+          <% end %>
+        </div>
+        <div class="vote-count">
+          <%= question.upvotes_count %>
+        </div>
+      </div>
+      <div class="card-content-wrapper">
+        <h5 class="card-title" style="text-align:left;float:left;"><%= question.title %></h5>
+        <h6 class="card-title" style="text-align:right;float:right;"> <%= question.user.login %> </h4>
+        <p class="card-text" style="clear:both;"><%= question.body %></p>
+        <%= link_to "View Question", question_path(question), class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+<% end %>

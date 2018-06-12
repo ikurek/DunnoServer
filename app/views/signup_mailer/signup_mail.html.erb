@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>DunnoApp Account Activation</title>
+  </head>
+  <body>
+    <h1>Hello, <%= @user.login %>!</h1>
+    <%= link_to "Click here to confirm Your account", confirm_account_url(host: "37.233.102.13:3000", confirmation_token: @user.single_access_token, login: @user.login) %>
+  </body>
+</html>

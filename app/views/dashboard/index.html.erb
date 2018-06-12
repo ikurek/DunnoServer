@@ -1,0 +1,30 @@
+
+<%= link_to "Add Question", new_question_path, class: "btn btn-success" %>
+<%= link_to "All Questions", questions_path, class: "btn btn-primary" %>
+
+<hr>
+<h1>My Questions</h1>
+<hr>
+
+<% @questions.each do |question| %>
+  <div class="card my-2" style="">
+    <div class="card-body">
+      <div class="vote-wrapper">
+        <div class="vote-up">
+          <%= link_to toggle_vote_question_path(question), method: :post do %>
+            <i class="fas fa-arrow-alt-circle-up <%= question.upvoted_by?(current_user) ? 'upvoted' : '' %>"></i>
+          <% end %>
+        </div>
+        <div class="vote-count">
+          <%= question.upvotes_count %>
+        </div>
+      </div>
+      <div class="card-content-wrapper">
+        <h5 class="card-title" style="text-align:left;float:left;"><%= question.title %></h5>
+        <h6 class="card-title" style="text-align:right;float:right;"> <%= question.user.login %> </h4>
+        <p class="card-text" style="clear:both;"><%= question.body %></p>
+        <%= link_to "View Question", question_path(question), class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+<% end %>
